@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "mongodb"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  username      String   @unique
+  first_name    String
+  last_name     String
+  email_address String   @unique
+  clerk_id      String   @unique
+  bio           String
+  imageUrl      String
+  threads       Thread[]
+  onboarded     Boolean  @default(false)
+  created_at    DateTime @default(now()) @db.Date
+  updated_at    DateTime @default(now()) @db.Date
+}
+
+model Thread {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  author             User     @relation(fields: [authorId], references: [id])
+  authorId           String   @db.ObjectId
+  content            String
+  imageAttachmentUrl String?
+  created_at         DateTime @default(now()) @db.Date
+  updated_at         DateTime @default(now()) @db.Date
+  parentThreadId     String?  @db.ObjectId
+  parentThread       Thread?  @relation("ThreadReplies", fields: [parentThreadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies            Thread[] @relation("ThreadReplies")
+}
