@@ -87,7 +87,7 @@ export async function createUser({
 
 export async function fetchUser(userId: string) {
 	try {
-		const user = await prisma.user.findUnique({
+		const user = await prisma.user.findFirst({
 			where: {
 				clerk_id: userId
 			}
