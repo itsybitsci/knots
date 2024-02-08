@@ -11,8 +11,7 @@ import { updateUser } from "@/lib/actions/user.actions";
 
 // Resource: https://clerk.com/docs/integration/webhooks#supported-events
 // Above document lists the supported events
-type EventType =
-	| "user.updated";
+type EventType = "user.updated";
 
 type Event = {
 	data: Record<string, string | number | Record<string, string>[]>;
