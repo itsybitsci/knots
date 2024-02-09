@@ -20,7 +20,7 @@ export default function LeftSidebar() {
 
 					return (
 						<Link
-							className={`leftsidebar_link ${isActive && 'bg-primary-500'}`}
+							className={`leftsidebar_link ${isActive && 'bg-primary-500'} ${!isActive && 'hover:bg-gray-900'}`}
 							href={link.route}
 							key={link.label}
 						>
@@ -37,11 +37,11 @@ export default function LeftSidebar() {
 					)
 				})}
 			</div>
-			<div className='mt-10 px-6'>
+			<div className='mt-10 px-6 '>
 				<SignOutButton
-				// signOutCallback={() => router.push('/sign-in')}
+					signOutCallback={() => router.push('/sign-in')}
 				>
-					<div className='flex cursor-pointer gap-4 p-4'>
+					<div className='flex cursor-pointer gap-4 p-4 rounded-lg hover:bg-gray-900'>
 						<Image
 							src='/assets/logout.svg'
 							alt='logout'
