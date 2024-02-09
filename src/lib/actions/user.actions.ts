@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import prisma from '@/prisma/db';
 import { revalidatePath } from 'next/cache';
@@ -189,5 +189,31 @@ export async function getReplyNotifications(userId: string) {
 		return replies;
 	} catch (error: any) {
 		console.log(`Failed to fetch reply notifications: ${error.message}`);
+	}
+}
+
+export async function getSuggestedUsers(count: number, userId: string) {
+	try {
+		const users = await prisma.user.findMany(
+			{
+				take: count,
+				where: {
+					onboarded: true,
+					clerk_id: { not: userId },
+					threads: {
+						some: {}
+					}
+				},
+				orderBy: {
+					threads: {
+						_count: 'desc'
+					},
+				},
+			}
+		);
+
+		return users;
+	} catch (error: any) {
+		console.log(`Failed to fetch random users: ${error.message}`);
 	}
 }

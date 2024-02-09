@@ -30,9 +30,9 @@ export default async function SearchResults({
 								<UserCard
 									key={user.id}
 									id={user.clerk_id}
-									name={user.first_name}
 									username={user.username}
 									imageUrl={user.imageUrl}
+									bio={user.bio}
 								/>
 							)
 						})}
