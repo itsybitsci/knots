@@ -37,7 +37,9 @@ export default function LeftSidebar() {
 					)
 				})}
 			</div>
-			<div className='mt-10 px-6 '>
+
+			{/* Todo: Add the SignOutButton component to the left sidebar */}
+			{/* <div className='mt-10 px-6 '>
 				<SignOutButton
 					signOutCallback={() => router.push('/sign-in')}
 				>
@@ -51,7 +53,7 @@ export default function LeftSidebar() {
 						<p className='text-light-1 max-lg:hidden'>Logout</p>
 					</div>
 				</SignOutButton>
-			</div>
+			</div> */}
 		</section>
 	)
 }
