@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { formatDateString } from "@/lib/utils";
 import DeleteThread from "@/components/forms/delete-thread";
+import ThreadTimestamp from "@/components/shared/thread-timestamp";
 
 interface ThreadCardProps {
 	id: string;
@@ -162,11 +162,7 @@ export default function ThreadCard({
 				</div>
 			)}
 
-			<div className='mt-5 flex items-center'>
-				<p className='text-subtle-medium text-gray-1'>
-					{formatDateString(createdAt)}
-				</p>
-			</div>
+			<ThreadTimestamp createdAt={createdAt} />
 		</article>
 	)
 }
