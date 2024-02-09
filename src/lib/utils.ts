@@ -18,9 +18,9 @@ export function formatDateString(dateString: string) {
 	};
 
 	const date = new Date(dateString);
-	const formattedDate = date.toLocaleDateString(['en-PH'], options);
+	const formattedDate = date.toLocaleDateString([], options);
 
-	const time = date.toLocaleTimeString(['en-PH'], {
+	const time = date.toLocaleTimeString([], {
 		hour: "numeric",
 		minute: "2-digit",
 	});
