@@ -3,6 +3,7 @@ import UpdateProfile from "@/components/forms/update-profile";
 
 interface Props {
 	userClerkId: string
+	currentUserClerkId: string
 	username: string;
 	imgUrl: string;
 	bio: string;
@@ -10,6 +11,7 @@ interface Props {
 
 export default function ProfileHeader({
 	userClerkId,
+	currentUserClerkId,
 	username,
 	imgUrl,
 	bio,
@@ -35,7 +37,7 @@ export default function ProfileHeader({
 						</h2>
 					</div>
 				</div>
-				<UpdateProfile userClerkId={userClerkId} bio={bio} />
+				{userClerkId == currentUserClerkId && <UpdateProfile userClerkId={userClerkId} bio={bio} />}
 			</div>
 
 			<p className='mt-6 max-w-lg text-base-regular text-light-2'>{bio}</p>

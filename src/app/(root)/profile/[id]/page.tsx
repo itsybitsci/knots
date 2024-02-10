@@ -23,6 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 		<section>
 			<ProfileHeader
 				userClerkId={user.id}
+				currentUserClerkId={currentUserInfo.id}
 				username={userInfo.username}
 				imgUrl={userInfo.imageUrl}
 				bio={userInfo.bio}
