@@ -69,7 +69,6 @@ export const POST = async (request: Request) => {
 
 			return NextResponse.json({ message: "User updated" }, { status: 201 });
 		} catch (err) {
-			console.log(err);
 			return NextResponse.json(
 				{ message: "Internal Server Error" },
 				{ status: 500 }

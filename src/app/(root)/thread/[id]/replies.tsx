@@ -5,10 +5,12 @@ import { redirect } from 'next/navigation';
 export default async function Replies(
 	{
 		threadId,
-		userId,
+		currentUseClerkrId,
+		currentUserId,
 	}: {
 		threadId: string;
-		userId: string;
+		currentUseClerkrId: string;
+		currentUserId: string;
 	}
 ) {
 	const threads = await fetchRepliesByThreadId(threadId);
@@ -20,7 +22,8 @@ export default async function Replies(
 				<ThreadCard
 					key={thread.id}
 					id={thread.id}
-					currentUserId={userId}
+					currentUseClerkrId={currentUseClerkrId}
+					currentUserId={currentUserId}
 					parentId={thread.parentThreadId}
 					content={thread.content}
 					imageAttachmentUrl={thread.imageAttachmentUrl}

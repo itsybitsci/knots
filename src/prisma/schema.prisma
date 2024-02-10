@@ -9,29 +9,42 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  username      String   @unique
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  username      String     @unique
   first_name    String
   last_name     String
-  email_address String   @unique
-  clerk_id      String   @unique
+  email_address String     @unique
+  clerk_id      String     @unique
   bio           String
   imageUrl      String
   threads       Thread[]
-  onboarded     Boolean  @default(false)
-  created_at    DateTime @default(now()) @db.Date
-  updated_at    DateTime @default(now()) @db.Date
+  reactions     Reaction[]
+  onboarded     Boolean    @default(false)
+  created_at    DateTime   @default(now()) @db.Date
+  updated_at    DateTime   @default(now()) @db.Date
 }
 
 model Thread {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  author             User     @relation(fields: [authorId], references: [id])
-  authorId           String   @db.ObjectId
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  author             User       @relation(fields: [authorId], references: [id])
+  authorId           String     @db.ObjectId
   content            String
   imageAttachmentUrl String?
-  created_at         DateTime @default(now()) @db.Date
-  updated_at         DateTime @default(now()) @db.Date
-  parentThreadId     String?  @db.ObjectId
-  parentThread       Thread?  @relation("ThreadReplies", fields: [parentThreadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies            Thread[] @relation("ThreadReplies")
+  created_at         DateTime   @default(now()) @db.Date
+  updated_at         DateTime   @default(now()) @db.Date
+  parentThreadId     String?    @db.ObjectId
+  parentThread       Thread?    @relation("ThreadReplies", fields: [parentThreadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies            Thread[]   @relation("ThreadReplies")
+  reactions          Reaction[]
+}
+
+model Reaction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @db.ObjectId
+  thread     Thread   @relation(fields: [threadId], references: [id])
+  threadId   String   @db.ObjectId
+  type       String
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @default(now()) @db.Date
 }

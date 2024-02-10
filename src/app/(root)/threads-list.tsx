@@ -2,7 +2,7 @@ import { fetchThreads } from "@/lib/actions/thread.actions";
 import ThreadCard from "@/components/cards/thread-card";
 import { currentUser } from "@clerk/nextjs";
 
-export default async function ThreadsList() {
+export default async function ThreadsList({ currentUserId }: { currentUserId: string }) {
 	const user = await currentUser();
 	if (!user) return null;
 
@@ -21,7 +21,8 @@ export default async function ThreadsList() {
 							<ThreadCard
 								key={thread.id}
 								id={thread.id}
-								currentUserId={user?.id}
+								currentUseClerkrId={user?.id}
+								currentUserId={currentUserId}
 								parentId={thread.parentThreadId}
 								content={thread.content}
 								imageAttachmentUrl={thread.imageAttachmentUrl}

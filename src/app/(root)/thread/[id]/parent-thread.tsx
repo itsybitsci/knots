@@ -4,10 +4,12 @@ import { redirect } from 'next/navigation';
 
 export default async function ParentThread({
 	threadId,
-	userId,
+	currentUseClerkrId,
+	currentUserId,
 }: {
 	threadId: string;
-	userId: string;
+	currentUseClerkrId: string;
+	currentUserId: string;
 }) {
 	const thread = await fetchThreadById(threadId);
 	if (!thread) redirect('/');
@@ -16,7 +18,8 @@ export default async function ParentThread({
 		<div>
 			<ThreadCard
 				id={thread.id}
-				currentUserId={userId}
+				currentUseClerkrId={currentUseClerkrId}
+				currentUserId={currentUserId}
 				parentId={thread.parentThreadId}
 				content={thread.content}
 				imageAttachmentUrl={thread.imageAttachmentUrl}

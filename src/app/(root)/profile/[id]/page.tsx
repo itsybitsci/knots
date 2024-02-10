@@ -15,7 +15,9 @@ export default async function Page({ params }: { params: { id: string } }) {
 	if (!user) return null;
 
 	const userInfo = await fetchUser(params.id);
-	if (!userInfo?.onboarded) redirect('/onboarding');
+	const currentUserInfo = await fetchUser(user.id);
+	if (!userInfo) redirect('/');
+	if (!currentUserInfo?.onboarded) redirect('/onboarding');
 
 	return (
 		<section>
@@ -62,8 +64,9 @@ export default async function Page({ params }: { params: { id: string } }) {
 								</div>
 							}>
 								<ThreadsTab
-									id={userInfo.id}
-									clerk_id={user.id}
+									userId={userInfo.id}
+									currentUserId={currentUserInfo.id}
+									currentUserClerkId={user.id}
 									tab={tab.value}
 								/>
 							</Suspense>

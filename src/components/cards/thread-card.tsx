@@ -2,9 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import DeleteThread from "@/components/forms/delete-thread";
 import ThreadTimestamp from "@/components/shared/thread-timestamp";
+import LikeButton from "../shared/like-button";
+import { checkIfLiked, fetchReactionCount } from "@/lib/actions/reaction.action";
 
 interface ThreadCardProps {
 	id: string;
+	currentUseClerkrId: string;
 	currentUserId: string;
 	parentId: string | null;
 	content: string;
@@ -25,8 +28,9 @@ interface ThreadCardProps {
 	inProfilePage?: boolean;
 }
 
-export default function ThreadCard({
+export default async function ThreadCard({
 	id,
+	currentUseClerkrId,
 	currentUserId,
 	parentId,
 	content,
@@ -37,6 +41,10 @@ export default function ThreadCard({
 	isComment,
 	inProfilePage,
 }: ThreadCardProps) {
+	//TODO: Fix wrong author type being passed in reaction obj creation and checking
+	const reactionCount = await fetchReactionCount(id);
+	const initialIsLiked = await checkIfLiked(id, currentUserId);
+
 	return (
 		<article
 			className={`flex w-full flex-col rounded-xl ${isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
@@ -79,13 +87,7 @@ export default function ThreadCard({
 
 						<div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
 							<div className='flex gap-3.5'>
-								<Image
-									src='/assets/heart-gray.svg'
-									alt='heart'
-									width={24}
-									height={24}
-									className='cursor-pointer object-contain'
-								/>
+								<LikeButton threadId={id} userId={currentUserId} reactionCount={reactionCount ?? 0} initialIsLiked={initialIsLiked ?? false} />
 								<Link href={`/thread/${inProfilePage && parentId ? parentId : id}`}>
 									<Image
 										src='/assets/reply.svg'
@@ -95,7 +97,7 @@ export default function ThreadCard({
 										className='cursor-pointer object-contain'
 									/>
 								</Link>
-								<Image
+								{/* <Image
 									src='/assets/repost.svg'
 									alt='heart'
 									width={24}
@@ -108,7 +110,8 @@ export default function ThreadCard({
 									width={24}
 									height={24}
 									className='cursor-pointer object-contain'
-								/>
+								/> */}
+
 							</div>
 
 							{isComment && comments && comments.length > 0 && (
@@ -136,7 +139,7 @@ export default function ThreadCard({
 
 				<DeleteThread
 					threadId={id}
-					currentUserId={currentUserId}
+					currentUserId={currentUseClerkrId}
 					authorId={author.clerk_id}
 				/>
 			</div>

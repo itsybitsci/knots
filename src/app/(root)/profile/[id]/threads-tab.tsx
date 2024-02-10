@@ -2,15 +2,16 @@ import { fetchUserReplies, fetchUserThreads } from "@/lib/actions/thread.actions
 import ThreadCard from "@/components/cards/thread-card";
 
 interface Props {
-	id: string;
-	clerk_id: string;
+	userId: string;
+	currentUserClerkId: string;
+	currentUserId: string;
 	tab: string;
 }
 
-export default async function ThreadsTab({ id, clerk_id, tab }: Props) {
+export default async function ThreadsTab({ userId, currentUserClerkId, currentUserId, tab }: Props) {
 	let threads;
-	if (tab === 'threads') threads = await fetchUserThreads(id);
-	else if (tab === 'replies') threads = await fetchUserReplies(id);
+	if (tab === 'threads') threads = await fetchUserThreads(userId);
+	else if (tab === 'replies') threads = await fetchUserReplies(userId);
 
 	if (!threads) return null;
 
@@ -20,7 +21,8 @@ export default async function ThreadsTab({ id, clerk_id, tab }: Props) {
 				<ThreadCard
 					key={thread.id}
 					id={thread.id}
-					currentUserId={clerk_id}
+					currentUseClerkrId={currentUserClerkId}
+					currentUserId={currentUserId}
 					parentId={thread.parentThreadId}
 					content={thread.content}
 					imageAttachmentUrl={thread.imageAttachmentUrl}

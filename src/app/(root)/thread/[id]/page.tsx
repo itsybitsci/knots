@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 					<Icons.loading className='h-11 w-11' />
 				</div>
 			}>
-				<ParentThread threadId={params.id} userId={user.id} />
+				<ParentThread threadId={params.id} currentUseClerkrId={user.id} currentUserId={userInfo.id} />
 			</Suspense>
 
 			<div className='mt-7'>
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 					<Icons.loading className='h-11 w-11' />
 				</div>
 			}>
-				<Replies threadId={params.id} userId={user.id} />
+				<Replies threadId={params.id} currentUseClerkrId={user.id} currentUserId={userInfo.id} />
 			</Suspense>
 		</section>
 	)

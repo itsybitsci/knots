@@ -23,7 +23,7 @@ export default async function Page() {
 					<Icons.loading className='h-11 w-11' />
 				</div>
 			}>
-				<ThreadsList />
+				<ThreadsList currentUserId={userInfo.id} />
 			</Suspense>
 		</div>
 	)
