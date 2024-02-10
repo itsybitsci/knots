@@ -41,7 +41,6 @@ export default async function ThreadCard({
 	isComment,
 	inProfilePage,
 }: ThreadCardProps) {
-	//TODO: Fix wrong author type being passed in reaction obj creation and checking
 	const reactionCount = await fetchReactionCount(id);
 	const initialIsLiked = await checkIfLiked(id, currentUserId);
 
@@ -97,21 +96,6 @@ export default async function ThreadCard({
 										className='cursor-pointer object-contain'
 									/>
 								</Link>
-								{/* <Image
-									src='/assets/repost.svg'
-									alt='heart'
-									width={24}
-									height={24}
-									className='cursor-pointer object-contain'
-								/>
-								<Image
-									src='/assets/share.svg'
-									alt='heart'
-									width={24}
-									height={24}
-									className='cursor-pointer object-contain'
-								/> */}
-
 							</div>
 
 							{isComment && comments && comments.length > 0 && (
