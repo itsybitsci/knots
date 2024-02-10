@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { SignOutButton, UserButton } from '@clerk/nextjs'
+import { UserButton } from '@clerk/nextjs'
 
 export default function Topbar() {
 	return (
@@ -13,18 +13,6 @@ export default function Topbar() {
 			</Link>
 
 			<div className='flex items-center gap-1'>
-				<div className='block md:hidden'>
-					<SignOutButton>
-						<div className='flex cursor-pointer'>
-							<Image
-								src='/assets/logout.svg'
-								alt='logout'
-								width={24}
-								height={24}
-							/>
-						</div>
-					</SignOutButton>
-				</div>
 				<UserButton afterSignOutUrl='/sign-in' />
 			</div>
 		</nav>
