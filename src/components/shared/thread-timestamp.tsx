@@ -1,6 +1,10 @@
 'use client';
 
+import { useEffect, useState } from "react";
+
 export default function ThreadTimestamp({ createdAt }: { createdAt: string }) {
+	const [date, setDate] = useState('');
+
 	function formatDateString(dateString: string) {
 		const options: Intl.DateTimeFormatOptions = {
 			year: "numeric",
@@ -19,10 +23,14 @@ export default function ThreadTimestamp({ createdAt }: { createdAt: string }) {
 		return `${time} - ${formattedDate}`;
 	}
 
+	useEffect(() => {
+		setDate(formatDateString(createdAt));
+	}, []);
+
 	return (
 		<div className='mt-5 flex items-center'>
 			<p className='text-subtle-medium text-gray-1'>
-				{formatDateString(createdAt)}
+				{date}
 			</p>
 		</div>
 	)
